@@ -1,12 +1,16 @@
 import * as React from 'react';
-
 import { StyleSheet, View } from 'react-native';
-import HoverableViewManager from 'react-native-hoverable';
+import { Hoverable } from 'react-native-hoverable';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <HoverableViewManager color="#32a852" style={styles.box} />
+      <Hoverable
+        onMouseEnter={() => console.log('onMouseEnter')}
+        onMouseLeave={() => console.log('onMouseLeave')}
+        onMouseMove={() => console.log('onMouseMove')}
+        style={styles.box}
+      />
     </View>
   );
 }
@@ -18,8 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+    backgroundColor: '#32a852',
+    width: 100,
+    height: 100,
   },
 });

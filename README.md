@@ -5,17 +5,19 @@ Hover event support for React Native Catalyst
 ## Installation
 
 ```sh
-npm install react-native-hoverable
+yarn add react-native-hoverable
 ```
 
 ## Usage
 
 ```js
-import Hoverable from "react-native-hoverable";
+import { Hoverable } from 'react-native-hoverable';
 
 // ...
 
-const result = await Hoverable.multiply(3, 7);
+<Hoverable onMouseEnter={() => console.log('onMouseEnter')}>
+  <View />
+</Hoverable>;
 ```
 
 ## Contributing

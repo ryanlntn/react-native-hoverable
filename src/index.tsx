@@ -1,12 +1,13 @@
 import { requireNativeComponent, ViewStyle } from 'react-native';
 
 type HoverableProps = {
-  color: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onMouseMove?: () => void;
   style: ViewStyle;
 };
 
-export const HoverableViewManager = requireNativeComponent<HoverableProps>(
-'HoverableView'
-);
+export const Hoverable =
+  requireNativeComponent<HoverableProps>('HoverableView');
 
-export default HoverableViewManager;
+export default Hoverable;
