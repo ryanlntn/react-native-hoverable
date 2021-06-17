@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
 import {
+  Pressable as NativePressable,
+  PressableStateCallbackType,
   requireNativeComponent,
   StyleProp,
   ViewProps,
   ViewStyle,
 } from 'react-native';
+
+interface PressableStateCallbackTypeWeb extends PressableStateCallbackType {
+  hovered?: boolean;
+}
+
+type ChildrenType =
+  | React.ReactNode
+  | ((state: PressableStateCallbackTypeWeb) => React.ReactNode);
+
+type StylesType =
+  | StyleProp<ViewStyle>
+  | ((state: PressableStateCallbackTypeWeb) => StyleProp<ViewStyle>);
+
+interface PressableProps extends Omit<ViewProps, 'style'> {
+  children: ChildrenType;
+  style?: StylesType;
+}
 
 interface HoverableCallbackState {
   hovered: boolean;
@@ -16,9 +35,7 @@ interface MouseEventProps {
   onMouseMove?: () => void;
 }
 
-interface HoverableProps
-  extends Omit<ViewProps, 'children' | 'style'>,
-    MouseEventProps {
+interface HoverableProps extends Omit<ViewProps, 'style'>, MouseEventProps {
   children?:
     | React.ReactNode
     | ((state: HoverableCallbackState) => React.ReactNode);
@@ -38,7 +55,7 @@ export const Hoverable: React.FC<HoverableProps> = ({
   style,
   ...props
 }) => {
-  const [hovered, setHovered] = useState(false);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   return (
     <HoverableView
@@ -59,3 +76,29 @@ export const Hoverable: React.FC<HoverableProps> = ({
 };
 
 export default Hoverable;
+
+export const Pressable: React.FC<PressableProps> = ({
+  style,
+  children,
+  ...props
+}) => {
+  return (
+    <Hoverable>
+      {({ hovered }) => (
+        <NativePressable
+          style={(interactionState) =>
+            typeof style === 'function'
+              ? style({ ...interactionState, hovered })
+              : style
+          }
+          children={(interactionState) =>
+            typeof children === 'function'
+              ? children({ ...interactionState, hovered })
+              : children
+          }
+          {...props}
+        />
+      )}
+    </Hoverable>
+  );
+};

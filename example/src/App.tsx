@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Hoverable } from 'react-native-hoverable';
+import { Hoverable, Pressable } from 'react-native-hoverable';
 
 export default function App() {
   return (
@@ -16,11 +16,12 @@ export default function App() {
       >
         {({ hovered }) => (
           <View
-            style={{
-              backgroundColor: hovered ? 'red' : 'green',
-              height: 100,
-              width: 100,
-            }}
+            style={[
+              {
+                backgroundColor: hovered ? 'red' : 'green',
+              },
+              styles.box,
+            ]}
           />
         )}
       </Hoverable>
@@ -29,6 +30,23 @@ export default function App() {
           <Text style={{ color: hovered ? 'green' : 'red' }}>Hover World!</Text>
         )}
       </Hoverable>
+      <Pressable
+        style={({ pressed, hovered }) => [
+          styles.box,
+          { backgroundColor: pressed ? 'blue' : hovered ? 'red' : 'green' },
+        ]}
+      >
+        {({ hovered, pressed }) => (
+          <Text
+            style={{
+              color: pressed ? 'purple' : hovered ? 'green' : 'red',
+              textAlign: 'center',
+            }}
+          >
+            Pressable World!
+          </Text>
+        )}
+      </Pressable>
     </View>
   );
 }
