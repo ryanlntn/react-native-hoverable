@@ -13,11 +13,27 @@ yarn add react-native-hoverable
 ```js
 import { Hoverable } from 'react-native-hoverable';
 
-// ...
-
-<Hoverable onMouseEnter={() => console.log('onMouseEnter')}>
-  <View />
-</Hoverable>;
+const HoverableView = () => (
+  <Hoverable
+    onMouseEnter={() => console.log('onMouseEnter')}
+    onMouseLeave={() => console.log('onMouseLeave')}
+    onMouseMove={() => console.log('onMouseMove')}
+    style={({ hovered }) => [
+      { padding: hovered ? 20 : 0 },
+      { backgroundColor: 'purple' },
+    ]}
+  >
+    {({ hovered }) => (
+      <View
+        style={{
+          backgroundColor: hovered ? 'red' : 'green',
+          height: 100,
+          width: 100,
+        }}
+      />
+    )}
+  </Hoverable>
+);
 ```
 
 ## Contributing

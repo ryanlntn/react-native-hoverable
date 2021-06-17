@@ -10,10 +10,20 @@ export default function App() {
         onMouseLeave={() => console.log('onMouseLeave')}
         onMouseMove={() => console.log('onMouseMove')}
         style={({ hovered }) => [
-          styles.box,
-          { backgroundColor: hovered ? 'red' : 'green' },
+          { padding: hovered ? 20 : 0 },
+          { backgroundColor: 'purple' },
         ]}
-      />
+      >
+        {({ hovered }) => (
+          <View
+            style={{
+              backgroundColor: hovered ? 'red' : 'green',
+              height: 100,
+              width: 100,
+            }}
+          />
+        )}
+      </Hoverable>
       <Hoverable style={styles.box}>
         {({ hovered }) => (
           <Text style={{ color: hovered ? 'green' : 'red' }}>Hover World!</Text>
