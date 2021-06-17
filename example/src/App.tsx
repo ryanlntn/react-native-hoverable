@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Hoverable } from 'react-native-hoverable';
 
 export default function App() {
@@ -9,21 +9,30 @@ export default function App() {
         onMouseEnter={() => console.log('onMouseEnter')}
         onMouseLeave={() => console.log('onMouseLeave')}
         onMouseMove={() => console.log('onMouseMove')}
-        style={styles.box}
+        style={({ hovered }) => [
+          styles.box,
+          { backgroundColor: hovered ? 'red' : 'green' },
+        ]}
       />
+      <Hoverable style={styles.box}>
+        {({ hovered }) => (
+          <Text style={{ color: hovered ? 'green' : 'red' }}>Hover World!</Text>
+        )}
+      </Hoverable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
   },
   box: {
-    backgroundColor: '#32a852',
-    width: 100,
+    alignItems: 'center',
     height: 100,
+    justifyContent: 'center',
+    width: 100,
   },
 });
