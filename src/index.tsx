@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Pressable as NativePressable,
+  PressableProps as NativePressableProps,
   PressableStateCallbackType,
   requireNativeComponent,
   StyleProp,
@@ -20,7 +21,7 @@ type StylesType =
   | StyleProp<ViewStyle>
   | ((state: PressableStateCallbackTypeWeb) => StyleProp<ViewStyle>);
 
-interface PressableProps extends Omit<ViewProps, 'style'> {
+export interface PressableProps extends Omit<NativePressableProps, 'style'> {
   children: ChildrenType;
   style?: StylesType;
 }
@@ -35,7 +36,9 @@ interface MouseEventProps {
   onMouseMove?: () => void;
 }
 
-interface HoverableProps extends Omit<ViewProps, 'style'>, MouseEventProps {
+export interface HoverableProps
+  extends Omit<ViewProps, 'style'>,
+    MouseEventProps {
   children?:
     | React.ReactNode
     | ((state: HoverableCallbackState) => React.ReactNode);
