@@ -81,27 +81,39 @@ export const Hoverable: React.FC<HoverableProps> = ({
 export default Hoverable;
 
 export const Pressable: React.FC<PressableProps> = ({
-  style,
   children,
+  style,
   ...props
 }) => {
+  const [hovered, setHovered] = useState<boolean>(false);
   return (
-    <Hoverable>
-      {({ hovered }) => (
-        <NativePressable
-          style={(interactionState) =>
-            typeof style === 'function'
-              ? style({ ...interactionState, hovered })
-              : style
-          }
-          children={(interactionState) =>
-            typeof children === 'function'
-              ? children({ ...interactionState, hovered })
-              : children
-          }
-          {...props}
-        />
+    <NativePressable
+      style={(interactionState) => [
+        { position: 'relative' },
+        typeof style === 'function'
+          ? style({ ...interactionState, hovered })
+          : style,
+      ]}
+      {...props}
+    >
+      {(interactionState) => (
+        <>
+          {typeof children === 'function'
+            ? children({ ...interactionState, hovered })
+            : children}
+          <Hoverable
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
+          />
+        </>
       )}
-    </Hoverable>
+    </NativePressable>
   );
 };
