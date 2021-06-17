@@ -4,7 +4,11 @@ class HoverableViewManager: RCTViewManager {
   override func view() -> (HoverableView) {
     return HoverableView()
   }
-    
+
+  override static func requiresMainQueueSetup() -> Bool {
+    return true;
+  }
+
 }
 
 class HoverableView : UIView {
@@ -25,7 +29,7 @@ class HoverableView : UIView {
     }
     #endif
   }
-    
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
