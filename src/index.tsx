@@ -80,8 +80,11 @@ export const Hoverable: React.FC<HoverableProps> = ({
 
 export default Hoverable;
 
-export const Pressable: React.FC<PressableProps> = ({
+export const Pressable: React.FC<PressableProps & MouseEventProps> = ({
   children,
+  onMouseEnter,
+  onMouseMove,
+  onMouseLeave,
   style,
   ...props
 }) => {
@@ -102,8 +105,15 @@ export const Pressable: React.FC<PressableProps> = ({
             ? children({ ...interactionState, hovered })
             : children}
           <Hoverable
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+            onMouseEnter={() => {
+              setHovered(true);
+              onMouseEnter?.();
+            }}
+            onMouseLeave={() => {
+              setHovered(false);
+              onMouseLeave?.();
+            }}
+            onMouseMove={onMouseMove}
             style={{
               position: 'absolute',
               top: 0,
