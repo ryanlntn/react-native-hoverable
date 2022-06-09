@@ -1,51 +1,10 @@
 import React, { useState } from 'react';
 import {
   Pressable as NativePressable,
-  PressableProps as NativePressableProps,
-  PressableStateCallbackType,
   requireNativeComponent,
-  StyleProp,
   ViewProps,
-  ViewStyle,
 } from 'react-native';
-
-interface PressableStateCallbackTypeWeb extends PressableStateCallbackType {
-  hovered?: boolean;
-}
-
-type ChildrenType =
-  | React.ReactNode
-  | ((state: PressableStateCallbackTypeWeb) => React.ReactNode);
-
-type StylesType =
-  | StyleProp<ViewStyle>
-  | ((state: PressableStateCallbackTypeWeb) => StyleProp<ViewStyle>);
-
-export interface PressableProps extends Omit<NativePressableProps, 'style'> {
-  children: ChildrenType;
-  style?: StylesType;
-}
-
-interface HoverableCallbackState {
-  hovered: boolean;
-}
-
-interface MouseEventProps {
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onMouseMove?: () => void;
-}
-
-export interface HoverableProps
-  extends Omit<ViewProps, 'style'>,
-    MouseEventProps {
-  children?:
-    | React.ReactNode
-    | ((state: HoverableCallbackState) => React.ReactNode);
-  style?:
-    | StyleProp<ViewStyle>
-    | ((state: HoverableCallbackState) => StyleProp<ViewStyle>);
-}
+import type { HoverableProps, MouseEventProps, PressableProps } from './types';
 
 const HoverableView = requireNativeComponent<ViewProps & MouseEventProps>(
   'HoverableView'
