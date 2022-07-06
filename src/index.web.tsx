@@ -2,6 +2,8 @@ import React from 'react';
 import { Pressable as NativePressable } from 'react-native';
 import type { HoverableProps, MouseEventProps, PressableProps } from './types';
 
+export * from './types';
+
 export const Hoverable: React.FC<HoverableProps> = ({
   onMouseEnter,
   onMouseLeave,

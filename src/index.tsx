@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import type { HoverableProps, MouseEventProps, PressableProps } from './types';
 
+export * from './types';
+
 const HoverableView = requireNativeComponent<ViewProps & MouseEventProps>(
   'HoverableView'
 );
